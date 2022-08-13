@@ -1,0 +1,30 @@
+version: "3.9"
+
+networks:
+  pcbtags:
+
+services:
+  pcbtags-server:
+    image: pcbtags-server
+    networks:
+      - pcbtags
+
+  pcbtags-frontend:
+    image: pcbtags-frontend
+    networks:
+      - pcbtags
+    volumes:
+      - ./data/logs-frontend/:/var/log/ngnix/
+
+  pcbtags-gateway:
+    image: nginx:1.19-alpine
+    ports:
+      - "9000:80"
+    volumes:
+      - ./data/logs-gateway/:/var/log/ngnix/
+      - ./gateway.ngnix.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - pcbtags
+    depends_on:
+      - pcbtags-frontend
+      - pcbtags-server
