@@ -5,14 +5,14 @@ networks:
 
 services:
   pcbtags-server:
-    image: pcbtags-server
+    image: thestaticturtle/pcbtags-server
     networks:
       - pcbtags
     depends_on:
       - pcbtags-cache
 
   pcbtags-frontend:
-    image: pcbtags-frontend
+    image: thestaticturtle/pcbtags-frontend
     networks:
       - pcbtags
 
