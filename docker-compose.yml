@@ -6,6 +6,7 @@ networks:
 services:
   pcbtags-server:
     image: thestaticturtle/pcbtags-server
+    restart: unless-stopped
     networks:
       - pcbtags
     depends_on:
@@ -13,11 +14,13 @@ services:
 
   pcbtags-frontend:
     image: thestaticturtle/pcbtags-frontend
+    restart: unless-stopped
     networks:
       - pcbtags
 
   pcbtags-gateway:
     image: nginx:1.19-alpine
+    restart: unless-stopped
     ports:
       - "9000:80"
     volumes:
@@ -30,5 +33,6 @@ services:
 
   pcbtags-cache:
     image: "redis:alpine"
+    restart: unless-stopped
     networks:
       - pcbtags
